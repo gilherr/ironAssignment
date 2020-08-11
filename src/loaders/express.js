@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const logger = require('./logger')
+const routes = require('../api/routes')
 
 function expressLoader (app) {
   app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
@@ -11,9 +12,7 @@ function expressLoader (app) {
   app.use(logger.expressWinston)
 
   // Setup router
-  app.get('/', async (req, res) => {
-    res.status(200).json({ msg: 'hello world' })
-  })
+  app.use('/', routes)
 }
 
 module.exports = expressLoader
