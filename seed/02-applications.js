@@ -1,4 +1,5 @@
 /* global db */
+
 db.createCollection('applications')
 
 db.applications.createIndex(

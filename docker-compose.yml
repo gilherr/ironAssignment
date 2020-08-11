@@ -5,11 +5,13 @@ services:
     image: mongo:4.4.0
     restart: always
     volumes:
-      - ./src/config/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+      - ./seed:/docker-entrypoint-initdb.d
       - mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
   mongo-express:
