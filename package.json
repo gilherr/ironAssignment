@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config ./src/app.js ",
     "start": "node ./src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "test": "jest"
   },
   "author": "Gil Herr",
   "license": "ISC",
@@ -23,8 +22,16 @@
     "winston-console-format": "^1.0.8"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.9",
     "dotenv": "^8.2.0",
+    "jest": "^26.3.0",
     "nodemon": "^2.0.4",
     "standard": "^14.3.4"
+  },
+  "standard": {
+    "env": [
+      "node",
+      "jest"
+    ]
   }
 }
