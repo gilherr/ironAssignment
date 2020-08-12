@@ -1,19 +1,21 @@
 const logger = require('../../loaders/logger')
 const rankerFactory = require('./rankers')
+const dal = require('./applicationDAL')
 
-function findRelevantApps (customer) {
-  logger.debug('in findRelevantApps', customer)
-  const apps = fetchAppsByCategory(customer.category)
-  logger.debug('apps', { apps })
+async function findRelevantApps (customer) {
+  const apps = await fetchAppsByCategory(customer.category)
   const ranker = rankerFactory(customer.customerType)
   const rankedApps = ranker(apps)
+
   logger.debug('rankedApps', { rankedApps })
+
   return rankedApps
 }
 
-function fetchAppsByCategory (category) {
-  logger.debug('fetchAppsByCategory', { category })
-  return []
+async function fetchAppsByCategory (category) {
+  const apps = await dal.fetchAppsByCategory(category)
+  logger.debug('apps returning from db', { apps })
+  return apps
 }
 
 module.exports = {

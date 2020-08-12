@@ -1,1 +1,1 @@
-module.exports = (apps) => ['gold-app']
+module.exports = (apps) => apps

@@ -10,7 +10,7 @@ router.get('/relevantApplication', async (req, res) => {
     logger.error(error)
     res.status(400).json({ msg: 'Bad query params', err: error.stack })
   } else {
-    const relevantApps = findRelevantApps(validInput)
+    const relevantApps = await findRelevantApps(validInput)
     res.status(200).json({ apps: relevantApps })
   }
 })
