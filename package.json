@@ -18,7 +18,8 @@
     "express-winston": "^4.0.5",
     "mongoose": "^5.9.28",
     "morgan": "^1.10.0",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "winston-console-format": "^1.0.8"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

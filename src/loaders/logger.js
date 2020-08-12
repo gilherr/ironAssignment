@@ -1,39 +1,48 @@
 const { createLogger, format, transports } = require('winston')
 const expressWinston = require('express-winston')
 const config = require('../config')
+const { consoleFormat } = require('winston-console-format')
 
-const fileFormat = {
+const logger = createLogger({
+  level: config.logs.level,
   format: format.combine(
-    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    format.timestamp(),
+    format.ms(),
     format.errors({ stack: true }),
     format.splat(),
     format.json()
-  )
-}
-
-const loggerInstance = createLogger({
-  level: config.logs.level,
+  ),
   transports: [
-    new transports.File({ filename: 'logs/error.log', level: 'error', ...fileFormat }),
-    new transports.File({ filename: 'logs/combined.log', ...fileFormat })
+    new transports.File({ filename: 'logs/default.log' })
   ]
 })
 
 if (process.env.NODE_ENV !== 'production') {
-  loggerInstance.add(new transports.Console({
-    level: 'debug',
+  logger.add(new transports.Console({
+    handleExceptions: true,
     format: format.combine(
-      format.colorize(),
-      format.simple()
+      format.colorize({ all: true }),
+      format.padLevels(),
+      consoleFormat({
+        showMeta: true,
+        metaStrip: ['timestamp', 'service'],
+        inspectOptions: {
+          depth: Infinity,
+          colors: true,
+          maxArrayLength: Infinity,
+          breakLength: 80,
+          compact: Infinity
+        }
+      })
     )
   }))
 }
 
-loggerInstance.expressWinston = expressWinston.logger({
-  winstonInstance: loggerInstance,
+logger.expressWinston = expressWinston.logger({
+  winstonInstance: logger,
   meta: false,
   expressFormat: true,
   colorize: true
 })
 
-module.exports = loggerInstance
+module.exports = logger
