@@ -4,7 +4,6 @@ const axios = require('axios').default
 
 async function fetchAppsByCategory (category) {
   const apps = await Application.find({ category }, 'name avgAge')
-  logger.debug('fetchAppsByCategory', apps)
   return apps
 }
 
@@ -21,10 +20,9 @@ async function fetchThirdPartyNumbers () {
   }
   try {
     const res = await axios.get(url, { params })
-    logger.debug('3rd party numbers', res.data)
     return res.data
   } catch (error) {
-    logger.error('Error fetching random numbers from extarnal API', error)
+    logger.error('Error fetching random numbers from extarnal API', { error })
     throw error
   }
 }

@@ -7,14 +7,11 @@ async function findRelevantApps (customer) {
   const ranker = rankerFactory(customer.customerType)
   const rankedApps = ranker(apps, customer)
 
-  logger.debug('rankedApps', { rankedApps })
-
   return rankedApps
 }
 
 async function fetchAppsByCategory (category) {
   const apps = await dal.fetchAppsByCategory(category)
-  logger.debug('apps returning from db', { apps })
   return apps
 }
 
