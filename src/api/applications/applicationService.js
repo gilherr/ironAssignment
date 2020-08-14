@@ -5,7 +5,7 @@ const dal = require('./applicationDAL')
 async function findRelevantApps (customer) {
   const apps = await fetchAppsByCategory(customer.category)
   const ranker = rankerFactory(customer.customerType)
-  const rankedApps = ranker(apps)
+  const rankedApps = ranker(apps, customer)
 
   logger.debug('rankedApps', { rankedApps })
 
