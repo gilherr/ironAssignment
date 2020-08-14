@@ -35,20 +35,22 @@ describe('Rankers', () => {
       fetchThirdPartyNumbers.mockResolvedValueOnce(1)
       fetchThirdPartyNumbers.mockResolvedValueOnce(3)
 
-      const res = await silver(apps)
+      const res1 = await silver(apps)
+      const res2 = await silver(apps)
 
-      expect(res.length).toBe(NUM_APPS_TO_RECOMMEND)
-      res.forEach(app => { expect(apps).toContain(app) })
+      expect(res1.length).toBe(1)
+      expect(res2.length).toBe(3)
+      res1.forEach(app => { expect(apps).toContain(app) })
+      res2.forEach(app => { expect(apps).toContain(app) })
     })
 
     it('should return an empty array when recieving an empty array', async () => {
       const res = await silver([])
-      expect(res.length).toBe(0)
       expect(res).toEqual([])
     })
 
     it('should return the first two apps if http call fails', async () => {
-      fetchThirdPartyNumbers.mockRejectedValue(new Error('mock http failed'))
+      fetchThirdPartyNumbers.mockRejectedValue(new Error('Mock threw this error'))
 
       const res = await silver(apps)
 

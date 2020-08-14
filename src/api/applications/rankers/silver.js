@@ -1,28 +1,27 @@
 const { fetchThirdPartyNumbers } = require('../applicationDAL')
+const logger = require('../../../loaders/logger')
 
 async function silverRanker (apps) {
-  const NUM_APPS_TO_RECOMMEND = 2
-  const requestsForRandNums = []
-  const recommendedApps = []
-  let randNums
+  let quantity
+  try {
+    quantity = await fetchThirdPartyNumbers({ min: 1, max: 5 })
+  } catch (error) {
+    logger.error('Failed to fetch random number from external source', error)
+    return apps.slice(0, 2)
+  }
+  const randomIndexes = new Set()
 
-  if (apps.length <= NUM_APPS_TO_RECOMMEND) {
+  if (apps.length <= quantity) {
     return apps
   }
 
-  for (let i = 0; i < NUM_APPS_TO_RECOMMEND; i++) {
-    requestsForRandNums.push(fetchThirdPartyNumbers())
+  // collect $quantity unique indexes
+  while (randomIndexes.size < quantity) {
+    const randIdx = Math.floor(Math.random() * apps.length)
+    randomIndexes.add(randIdx)
   }
 
-  try {
-    randNums = await Promise.all(requestsForRandNums)
-  } catch (error) {
-    return apps.slice(0, NUM_APPS_TO_RECOMMEND)
-  }
-
-  for (let i = 0; i < NUM_APPS_TO_RECOMMEND; i++) {
-    recommendedApps.push(apps[randNums[i]])
-  }
+  const recommendedApps = Array.from(randomIndexes).map(i => apps[i])
 
   return recommendedApps
 }
