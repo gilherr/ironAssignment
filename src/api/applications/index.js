@@ -1,5 +1,4 @@
-const api = require('./applicationAPI')
-
 module.exports = {
-  api
+  API: require('./applicationAPI'),
+  Application: require('./applicationModel')
 }
