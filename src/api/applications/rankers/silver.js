@@ -2,6 +2,7 @@ const { fetchThirdPartyNumbers } = require('../applicationDAL')
 const logger = require('../../../loaders/logger')
 
 async function silverRanker (apps) {
+  logger.info('silverRanker: start', { apps: apps.map(app => app.name) })
   let quantity
   try {
     quantity = await fetchThirdPartyNumbers({ min: 1, max: 5 })

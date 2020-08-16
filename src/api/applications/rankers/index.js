@@ -9,6 +9,7 @@ function rankerFactory (customerType) {
   let rankingFunction
 
   if (validCustomerType) {
+    logger.info(`rankerFactory: returning ranking function for customer of type (${customerType}) `)
     rankingFunction = rankers[customerType]
   } else {
     logger.warn(`No ranking function exists for ${customerType} customer type`)

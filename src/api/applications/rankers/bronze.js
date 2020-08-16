@@ -1,4 +1,7 @@
+const logger = require('../../../loaders/logger')
+
 function bronzeRanker (apps) {
+  logger.info('bronzeRanker: start', { apps: apps.map(app => app.name) })
   const NUM_APPS_TO_RECOMMEND = 2
   const recommendedApps = []
   const randomIndexes = new Set()

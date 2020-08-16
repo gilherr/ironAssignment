@@ -1,4 +1,7 @@
+const logger = require('../../../loaders/logger')
+
 function goldRanker (apps, customer) {
+  logger.info('goldRanker: start', { apps: apps.map(app => app.name), customer })
   const NUM_APPS_TO_RECOMMEND = 2
 
   if (apps.length <= NUM_APPS_TO_RECOMMEND) {
