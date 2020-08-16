@@ -3,13 +3,21 @@ const logger = require('../../loaders/logger')
 const axios = require('axios').default
 
 async function fetchAll () {
-  const apps = await Application.find()
-  return apps
+  try {
+    return await Application.find()
+  } catch (error) {
+    logger.error('fetchAll: DB error', { error })
+    return null
+  }
 }
 
 async function fetchAppsByCategory (category) {
-  const apps = await Application.find({ category }, 'name avgAge')
-  return apps
+  try {
+    return await Application.find({ category }, 'name avgAge')
+  } catch (error) {
+    logger.error('fetchAppsByCategory: DB error', { error })
+    return null
+  }
 }
 
 async function fetchThirdPartyNumbers (options) {
