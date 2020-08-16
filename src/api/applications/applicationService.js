@@ -1,18 +1,17 @@
 const logger = require('../../loaders/logger')
 const rankerFactory = require('./rankers')
-const dal = require('./applicationDAL')
+const fetchAppsFilteredBy = require('./fetchers')
 
 async function findRelevantApps (customer) {
-  const apps = await fetchAppsByCategory(customer.category)
+  const apps = await fetchAppsFilteredBy('category', customer.category)
   const ranker = rankerFactory(customer.customerType)
-  const rankedApps = ranker(apps, customer)
+  const rankedApps = await ranker(apps, customer)
+
+  logger.info(
+    'findRelevantApps: done ranking',
+    { returningApps: rankedApps.map(app => app.name) })
 
   return rankedApps
-}
-
-async function fetchAppsByCategory (category) {
-  const apps = await dal.fetchAppsByCategory(category)
-  return apps
 }
 
 module.exports = {

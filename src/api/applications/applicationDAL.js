@@ -2,6 +2,11 @@ const Application = require('./applicationModel')
 const logger = require('../../loaders/logger')
 const axios = require('axios').default
 
+async function fetchAll () {
+  const apps = await Application.find()
+  return apps
+}
+
 async function fetchAppsByCategory (category) {
   const apps = await Application.find({ category }, 'name avgAge')
   return apps
@@ -30,6 +35,7 @@ async function fetchThirdPartyNumbers (options) {
 }
 
 module.exports = {
+  fetchAll,
   fetchAppsByCategory,
   fetchThirdPartyNumbers
 }
