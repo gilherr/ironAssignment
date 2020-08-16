@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "c58c63ab-1609-4336-9121-b2e5d2c992a4",
+		"name": "ironAssignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "relevantApplication | bronze",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/appService/relevantApplication?age=30&category=music&customerType=bronze",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appService",
+						"relevantApplication"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "category",
+							"value": "music"
+						},
+						{
+							"key": "customerType",
+							"value": "bronze"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "relevantApplication | silver",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/appService/relevantApplication?age=25&category=music&customerType=silver",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appService",
+						"relevantApplication"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "25"
+						},
+						{
+							"key": "category",
+							"value": "music"
+						},
+						{
+							"key": "customerType",
+							"value": "silver"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "relevantApplication | gold",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/appService/relevantApplication?age=30&category=music&customerType=gold",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appService",
+						"relevantApplication"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "category",
+							"value": "music"
+						},
+						{
+							"key": "customerType",
+							"value": "gold"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random.org",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.random.org/integers/?num=1&min=1&max=5&col=1&base=10&format=plain&rnd=new",
+					"protocol": "https",
+					"host": [
+						"www",
+						"random",
+						"org"
+					],
+					"path": [
+						"integers",
+						""
+					],
+					"query": [
+						{
+							"key": "num",
+							"value": "1"
+						},
+						{
+							"key": "min",
+							"value": "1"
+						},
+						{
+							"key": "max",
+							"value": "5"
+						},
+						{
+							"key": "col",
+							"value": "1"
+						},
+						{
+							"key": "base",
+							"value": "10"
+						},
+						{
+							"key": "format",
+							"value": "plain"
+						},
+						{
+							"key": "rnd",
+							"value": "new"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "installedApps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f283dc7-135f-40ff-b581-43e60b045dac",
+						"exec": [
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"in installedApps\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.msg).to.eql(\"in installedApps\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"age\" : \"29\", \"installedApp\": \"Subin\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/appService/installedApps",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appService",
+						"installedApps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "installedApps Secondary",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"age\" : \"16\", \"installedApp\": \"Greenlam\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/appService/installedApps",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appService",
+						"installedApps"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
