@@ -10,5 +10,6 @@ module.exports = async () => {
 
   const connString = `mongodb://${user}:${password}@${host}:${port}/${dbName}`
   const connection = await mongoose.connect(connString, options)
+  mongoose.set('useFindAndModify', false)
   return connection.connection.db
 }
