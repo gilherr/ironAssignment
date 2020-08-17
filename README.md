@@ -49,3 +49,8 @@ Import `/postman_collection.json` into postman to have the endpoint ready.
 ### Mongo-Express
 
 You can explore the database with "Mongo Express" at `http://localhost:8081/`.
+
+## References
+
+* [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
+* [Bulletproof Node.js architecture](https://github.com/santiq/bulletproof-nodejs)
